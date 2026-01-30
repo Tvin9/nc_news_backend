@@ -29,13 +29,45 @@ async function getNegComments() {
 
 async function getAllTopics() {
 	const allTopics = await db.query(`
-        SELECT topics FROM articles
+        SELECT topic FROM articles
         `);
 	await db.end;
+	console.log(allTopics);
+	return allTopics;
+}
+
+async function getArticleByUser(user) {
+	const userArts = await db.query(`
+        SELECT * FROM articles
+        WHERE author = '${user}'
+        `);
+	await db.end;
+	console.log(userArts);
+	return userArts;
+}
+
+async function getVotesAboveTen() {
+	const voteTen = await db.query(`
+        SELECT * FROM COMMENTS
+        WHERE votes > 10
+        `);
+	await db.end;
+	console.log(voteTen);
+	return voteTen;
 }
 
 //getUsers();
 //getTopic('football');
 //getNegComments();
+//getAllTopics();
+//getArticleByUser('cooljmessy');
+//getVotesAboveTen();
 
-module.exports = { getAllUsers, getTopic, getNegComments };
+module.exports = {
+	getAllUsers,
+	getTopic,
+	getNegComments,
+	getAllTopics,
+	getArticleByUser,
+	getVotesAboveTen,
+};
