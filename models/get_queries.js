@@ -1,4 +1,4 @@
-const db = require('./db/connection');
+const db = require('../db/connection');
 
 async function getAllUsers() {
 	const allUsers = await db.query(`SELECT * FROM users`);
@@ -27,33 +27,14 @@ async function getNegComments() {
 	return negComments;
 }
 
-async function getAllTopics() {
-	const allTopics = await db.query(`
-        SELECT topic FROM articles
-        `);
-	await db.end;
-	console.log(allTopics);
-	return allTopics;
-}
-
-async function getArticleByUser(user) {
-	const userArts = await db.query(`
-        SELECT * FROM articles
-        WHERE author = '${user}'
-        `);
-	await db.end;
-	console.log(userArts);
-	return userArts;
-}
-
 async function getVotesAboveTen() {
-	const voteTen = await db.query(`
+	const { rows } = await db.query(`
         SELECT * FROM COMMENTS
         WHERE votes > 10
         `);
 	await db.end;
-	console.log(voteTen);
-	return voteTen;
+	console.log(rows);
+	return rows;
 }
 
 //getUsers();
@@ -67,7 +48,5 @@ module.exports = {
 	getAllUsers,
 	getTopic,
 	getNegComments,
-	getAllTopics,
-	getArticleByUser,
 	getVotesAboveTen,
 };
