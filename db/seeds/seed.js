@@ -81,17 +81,17 @@ const seed = async ({
 	await db.query(topicStr);
 
 	//Emojis seed
-	const formattedEmojis = emojisData.map((emoji) => {
-		return [emoji.emoji];
-	});
+	//const formattedEmojis = emojisData.map((emoji) => {
+	//	return [emoji.emoji];
+	//});
 
-	const emojiStr = format(
-		`INSERT INTO emojis (emoji)
-							VALUES %L`,
-		formattedEmojis,
-	);
+	//const emojiStr = format(
+	//	`INSERT INTO emojis (emoji)
+	//						VALUES %L`,
+	//	formattedEmojis,
+	//);
 
-	await db.query(emojiStr);
+	//await db.query(emojiStr);
 
 	//Users seed
 	const formattedUsers = userData.map((user) => {
