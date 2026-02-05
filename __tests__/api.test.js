@@ -43,7 +43,7 @@ describe('GET: api/articles', () => {
 			.expect(200)
 			.then(({ body }) => {
 				body.articles.forEach((article) => {
-					expect(typeof article.body).toBe(null);
+					expect(typeof article.body).toBe('undefined');
 				});
 			});
 	});
