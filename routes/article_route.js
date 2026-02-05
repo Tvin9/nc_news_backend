@@ -1,8 +1,8 @@
-const express = require('express');
-const article_route = express.Router();
+const article_router = require('express').Router();
+const {
+	getAllArticlesController,
+} = require('../controllers/article_controller');
 
-article_route.get('/api/articles', (req, res) => {
-	res.send('Articles page');
-});
+article_router.get('/', getAllArticlesController);
 
-module.exports = { article_route };
+module.exports = article_router;
