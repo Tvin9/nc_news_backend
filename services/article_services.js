@@ -1,5 +1,9 @@
-const { getAllArticles } = require('../models/articles_model');
+const { getAllArticles, getArticlesById } = require('../models/articles_model');
 
 exports.getAllArticles = () => {
 	return getAllArticles();
+};
+
+exports.getArticlesById = () => {
+	return getArticlesById();
 };

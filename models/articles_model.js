@@ -19,3 +19,11 @@ exports.getAllArticles = async () => {
 		`);
 	return rows;
 };
+
+exports.getArticlesById = async () => {
+	const { rows } = await db.query(`
+		SELECT article_id FROM articles
+	`);
+	console.log(rows);
+	return rows;
+};
