@@ -67,14 +67,30 @@ describe('200 GET: api/articles', () => {
 			});
 	});
 });
-/*
+
 describe('200 GET: api/users', () => {
 	test('200: should return an object', () => {
 		return request(app)
 			.get('/api/users')
+			.expect(200)
 			.then(({ body }) => {
 				expect(body.users).toBeObject();
 			});
 	});
+	test('Object shouls have the key of users', () => {
+		return request(app)
+			.get('/api/users')
+			.then(({ body }) => {
+				expect(body.users).toContainKey('users');
+			});
+	});
+	test('Object should have relevent properties', () => {
+		return request(app)
+			.get('/api/users')
+			.then(({ body }) => {
+				body.users.users.forEach((user) => {
+					expect(user).toContainAllKeys(['username', 'name', 'avatar_url']);
+				});
+			});
+	});
 });
-*/

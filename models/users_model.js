@@ -1,8 +1,10 @@
 const db = require('../db/connection');
 
-exports.getAllFunctions = async () => {
+exports.getAllUsers = async () => {
 	const { rows } = await db.query(`
         SELECT * FROM users
         `);
-	return rows;
+	const users = { users: rows };
+	console.log(users);
+	return users;
 };
