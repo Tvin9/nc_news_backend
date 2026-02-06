@@ -12,7 +12,7 @@ afterAll(async () => {
 	await db.end();
 });
 
-describe('GET: api/articles', () => {
+describe('200 GET: api/articles', () => {
 	test('should reeturn a 200 status code, and the title should be a string', () => {
 		return request(app)
 			.get('/api/articles')
@@ -47,5 +47,29 @@ describe('GET: api/articles', () => {
 				});
 			});
 	});
-	//test("", () => {});
+	test('should return articles ordered by date (descending)', () => {
+		return request(app)
+			.get('/api/articles')
+			.then(({ body }) => {
+				expect(body.articles).toBeSortedBy(body.articles.created_at, {
+					descending: true,
+				});
+			});
+	});
+	test('should return the total number of comments on an article', () => {
+		return request(app)
+			.get('/api/articles')
+			.then(({ body }) => {
+				body.articles.forEach((article) => {
+					expect(article.comment_count).toBeInteger();
+				});
+				expect(body.articles[5].comment_count).toBe('2');
+			});
+	});
+});
+
+describe('200 GET: api/users', () => {
+	test('Should return an object', () => {
+		return request(app).get('/api/users');
+	});
 });

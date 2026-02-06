@@ -3,14 +3,20 @@ const db = require('../db/connection');
 exports.getAllArticles = async () => {
 	const { rows } = await db.query(`
         SELECT 
-			author, 
-			title, 
-			article_id, 
-			topic,
-			created_at,
-			votes,
-			article_img_url
-		FROM articles
+			articles.author, 
+			articles.title, 
+			articles.article_id, 
+			articles.topic,
+			articles.created_at,
+			articles.votes,
+			articles.article_img_url,
+			COUNT (*) AS comment_count
+		FROM articles 
+		LEFT JOIN comments 
+		ON articles.article_id = comments.article_id
+		GROUP BY articles.article_id
+		ORDER BY articles.created_at DESC
 		`);
+	console.log(rows);
 	return rows;
 };
