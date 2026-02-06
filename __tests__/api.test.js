@@ -12,6 +12,17 @@ afterAll(async () => {
 	await db.end();
 });
 
+describe('400: Errors', () => {
+	test('404: Should return error when endpoint not found', () => {
+		return request(app)
+			.get('/api/invalid')
+			.expect(404)
+			.then(({ body }) => {
+				expect(body.msg).toBe('Path not found!');
+			});
+	});
+});
+
 describe('200 GET: api/articles', () => {
 	test('should reeturn a 200 status code, and the title should be a string', () => {
 		return request(app)

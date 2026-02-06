@@ -1,4 +1,6 @@
-# NC News Seeding
+## NC News
+
+# Seeding
 
 Two .env files must be created: .env.test .env.development
 
