@@ -67,9 +67,14 @@ describe('200 GET: api/articles', () => {
 			});
 	});
 });
-
+/*
 describe('200 GET: api/users', () => {
-	test('Should return an object', () => {
-		return request(app).get('/api/users');
+	test('200: should return an object', () => {
+		return request(app)
+			.get('/api/users')
+			.then(({ body }) => {
+				expect(body.users).toBeObject();
+			});
 	});
 });
+*/

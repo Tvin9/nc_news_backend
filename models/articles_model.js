@@ -17,6 +17,5 @@ exports.getAllArticles = async () => {
 		GROUP BY articles.article_id
 		ORDER BY articles.created_at DESC
 		`);
-	console.log(rows);
 	return rows;
 };
