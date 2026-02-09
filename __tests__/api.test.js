@@ -83,6 +83,15 @@ describe('200 GET: api/articles/:article_id', () => {
 	test('Should get a 200 status message', () => {
 		return request(app).get('/api/articles/1').expect(200);
 	});
+
+	test('Should return an object', () => {
+		return request(app)
+			.get('/api/articles/2')
+			.expect(200)
+			.then(({ body }) => {
+				expect(body).toBeObject();
+			});
+	});
 	//test("", () => {});
 });
 

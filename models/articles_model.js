@@ -20,10 +20,15 @@ exports.getAllArticles = async () => {
 	return rows;
 };
 
-exports.getArticlesById = async () => {
-	const { rows } = await db.query(`
-		SELECT article_id FROM articles
-	`);
-	console.log(rows);
-	return rows;
+exports.getArticlesById = async (article_id) => {
+	const { rows } = await db.query(
+		`
+		SELECT * FROM articles
+		WHERE article_id = $1
+	`,
+		[article_id],
+	);
+	const article_by_id = { article: rows };
+	console.log(article_by_id);
+	return article_by_id;
 };

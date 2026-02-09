@@ -8,9 +8,9 @@ exports.getAllArticlesController = async (req, res) => {
 
 	res.status(200).send({ articles });
 };
-
-exports.getArticlesById = async (req, res) => {
-	const article_id = await getArticlesByIdService();
-
-	res.status(200).send({ article_id });
+exports.getArticlesById = (req, res, next) => {
+	const { article_id } = req.params;
+	getArticlesByIdService(article_id).then((article) => {
+		res.status(200).send({ article });
+	});
 };
