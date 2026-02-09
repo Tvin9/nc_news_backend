@@ -156,7 +156,6 @@ describe('201 POST: /api/articles/:article_id/comments', () => {
 			.post('/api/articles/2/comments')
 			.send({ author: 'butter_bridge', body: 'Rubbish!' })
 			.then(({ body }) => {
-				//console.log(body);
 				expect(body.comment).toHaveProperty('author');
 			});
 	});
@@ -177,5 +176,11 @@ describe('202 PATCH: /api/articles/:article_id', () => {
 				console.log({ body });
 				expect(body.vote.votes).toBe(101);
 			});
+	});
+});
+
+describe('204 DELETE: /api/comments/:comment_id', () => {
+	test('Should retrun a 204', () => {
+		return request(app).delete('/api/comments/1').expect(204);
 	});
 });
