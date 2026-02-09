@@ -173,7 +173,6 @@ describe('202 PATCH: /api/articles/:article_id', () => {
 			.post('/api/articles/1')
 			.send({ inc_votes: 1 })
 			.then(({ body }) => {
-				console.log({ body });
 				expect(body.vote.votes).toBe(101);
 			});
 	});
@@ -182,5 +181,13 @@ describe('202 PATCH: /api/articles/:article_id', () => {
 describe('204 DELETE: /api/comments/:comment_id', () => {
 	test('Should retrun a 204', () => {
 		return request(app).delete('/api/comments/1').expect(204);
+	});
+	test('Should remove the specified comment', () => {
+		return request(app)
+			.delete('/api/comments/1')
+			.expect(204)
+			.then(({ body }) => {
+				expect(body).toEqual({});
+			});
 	});
 });
