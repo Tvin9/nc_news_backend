@@ -89,7 +89,29 @@ describe('200 GET: api/articles/:article_id', () => {
 			.get('/api/articles/2')
 			.expect(200)
 			.then(({ body }) => {
+				expect(body.article).toBeObject();
+			});
+	});
+});
+
+describe('200 GET: api/articles/:article_id/comments', () => {
+	test('Should return a 200 status method', () => {
+		return request(app).get('/api/articles/1/comments').expect(200);
+	});
+	test('Should return an object', () => {
+		return request(app)
+			.get('/api/articles/2/comments')
+			.expect(200)
+			.then(({ body }) => {
 				expect(body).toBeObject();
+			});
+	});
+	test('Should return comments sorted by date, most recent first', () => {
+		return request(app)
+			.get('/api/articles/1/comments')
+			.then(({ body }) => {
+				console.log({ body });
+				expect(body.comments).toBeSortedBy(body.comments.created_at);
 			});
 	});
 	//test("", () => {});

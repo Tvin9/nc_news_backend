@@ -29,6 +29,20 @@ exports.getArticlesById = async (article_id) => {
 		[article_id],
 	);
 	const article_by_id = { article: rows };
-	console.log(article_by_id);
+
 	return article_by_id;
+};
+
+exports.getArticleComments = async (article_id) => {
+	const { rows } = await db.query(
+		`
+		SELECT * FROM comments
+		WHERE article_id = $1
+		ORDER BY comments.created_at DESC
+		`,
+		[article_id],
+	);
+	const comments = rows;
+
+	return comments;
 };
