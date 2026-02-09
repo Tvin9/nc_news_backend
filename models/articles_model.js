@@ -59,6 +59,21 @@ exports.postComment = async (comment, article_id) => {
 		`,
 		[author, body, article_id],
 	);
-	//console.log(newComment);
+
+	return rows[0];
+};
+
+exports.updateVotes = async (inc_votes, article_id) => {
+	const vote = Object.values(inc_votes)[0];
+	const { rows } = await db.query(
+		`
+		UPDATE articles
+		SET votes = votes + $1
+		WHERE article_id = $2
+		RETURNING *
+		`,
+		[vote, article_id],
+	);
+
 	return rows[0];
 };

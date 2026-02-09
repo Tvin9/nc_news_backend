@@ -3,6 +3,7 @@ const {
 	getArticlesById: getArticlesByIdService,
 	getArticleComments: getArticleCommentsService,
 	postComment: postCommentService,
+	updateVotes: updateVotesService,
 } = require('../services/article_services');
 
 //GET
@@ -31,5 +32,14 @@ exports.postComment = (req, res) => {
 	const { article_id } = req.params;
 	postCommentService(newComment, article_id).then((comment) => {
 		res.status(201).send({ comment });
+	});
+};
+
+//PATCH
+exports.updateVotes = (req, res) => {
+	const inc_votes = req.body;
+	const { article_id } = req.params;
+	updateVotesService(inc_votes, article_id).then((vote) => {
+		res.status(202).send({ vote });
 	});
 };

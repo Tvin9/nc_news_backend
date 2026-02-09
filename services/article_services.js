@@ -3,6 +3,7 @@ const {
 	getArticlesById,
 	getArticleComments,
 	postComment,
+	updateVotes,
 } = require('../models/articles_model');
 
 exports.getAllArticles = () => {
@@ -18,6 +19,9 @@ exports.getArticleComments = (article_id) => {
 };
 
 exports.postComment = (comment, article_id) => {
-	//console.log(comment);
 	return postComment(comment, article_id);
+};
+
+exports.updateVotes = (inc_votes, article_id) => {
+	return updateVotes(inc_votes, article_id);
 };

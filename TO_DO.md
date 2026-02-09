@@ -6,3 +6,7 @@ Add 404 error to GET article by id
 #GET comments by article_id
 
 Add 404 error for get comments
+
+#POSt comments
+Test for invalid input
+test for duplicates
