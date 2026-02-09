@@ -2,8 +2,10 @@ const {
 	getAllArticles: getAllArticlesService,
 	getArticlesById: getArticlesByIdService,
 	getArticleComments: getArticleCommentsService,
+	postComment: postCommentService,
 } = require('../services/article_services');
 
+//GET
 exports.getAllArticlesController = async (req, res) => {
 	const articles = await getAllArticlesService();
 
@@ -20,5 +22,14 @@ exports.getArticleComments = (req, res) => {
 	const { article_id } = req.params;
 	getArticleCommentsService(article_id).then((comments) => {
 		res.status(200).send({ comments });
+	});
+};
+
+//POST
+exports.postComment = (req, res) => {
+	const newComment = req.body;
+	const { article_id } = req.params;
+	postCommentService(newComment, article_id).then((comment) => {
+		res.status(201).send({ comment });
 	});
 };

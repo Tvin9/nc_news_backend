@@ -46,3 +46,19 @@ exports.getArticleComments = async (article_id) => {
 
 	return comments;
 };
+
+exports.postComment = async (comment, article_id) => {
+	const author = comment.author;
+	const body = comment.body;
+
+	const { rows } = await db.query(
+		`
+		INSERT INTO comments (author, body, article_id)
+		VALUES ($1, $2, $3) 
+		RETURNING *
+		`,
+		[author, body, article_id],
+	);
+	//console.log(newComment);
+	return rows[0];
+};

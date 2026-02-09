@@ -3,6 +3,7 @@ const seed = require('../db/seeds/seed');
 const data = require('../db/data/test-data/index');
 const request = require('supertest');
 const app = require('../app');
+const supertest = require('supertest');
 
 beforeEach(async () => {
 	await seed(data);
@@ -110,7 +111,6 @@ describe('200 GET: api/articles/:article_id/comments', () => {
 		return request(app)
 			.get('/api/articles/1/comments')
 			.then(({ body }) => {
-				console.log({ body });
 				expect(body.comments).toBeSortedBy(body.comments.created_at);
 			});
 	});
@@ -140,6 +140,24 @@ describe('200 GET: api/users', () => {
 				body.users.users.forEach((user) => {
 					expect(user).toContainAllKeys(['username', 'name', 'avatar_url']);
 				});
+			});
+	});
+});
+
+describe('201 POST: /api/articles/:article_id/comments', () => {
+	test('Should return with a 201 status', () => {
+		return request(app)
+			.post('/api/articles/2/comments')
+			.send({ author: 'butter_bridge', body: 'Rubbish!' })
+			.expect(201);
+	});
+	test('Should accept a username and text into the database', () => {
+		return request(app)
+			.post('/api/articles/2/comments')
+			.send({ author: 'butter_bridge', body: 'Rubbish!' })
+			.then(({ body }) => {
+				//console.log(body);
+				expect(body.comment).toHaveProperty('author');
 			});
 	});
 });
