@@ -18,6 +18,9 @@ app.use('/api/articles', article_router);
 app.use('/api/users', user_router);
 app.use('/api/comments', comment_router);
 
+//Links html and css
+app.use(express.static('public'));
+
 //Error handling
 app.all('/*path', (req, res, next) => {
 	res.status(404).send({ msg: 'Path not found!' });
