@@ -7,7 +7,7 @@ body {
 }
 
 header {
-	background-color: #483d8b;
+	background-color: hsl(248, 39%, 39%);
 	color: #f0f8ff;
 	padding: 1.5rem;
 	justify-content: center;
@@ -27,7 +27,7 @@ li {
 }
 
 .endpoint-card {
-	background-color: #f0f8ff;
+	background-color: hsl(208, 100%, 97%);
 	border: 2px solid #483d8b;
 	border-radius: 4px;
 }
