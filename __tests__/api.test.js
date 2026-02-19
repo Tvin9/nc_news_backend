@@ -24,6 +24,12 @@ describe('400: Errors', () => {
 	});
 });
 
+describe('200 GET: api/topics', () => {
+	test('Should get a 200 status message', () => {
+		return request(app).get('/api/topics').expect(200);
+	});
+});
+
 describe('200 GET: api/articles', () => {
 	test('should reeturn a 200 status code, and the title should be a string', () => {
 		return request(app)
