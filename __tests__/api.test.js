@@ -110,7 +110,7 @@ describe('200 GET: api/articles/:article_id', () => {
 			.get('/api/articles/2')
 			.expect(200)
 			.then(({ body }) => {
-				expect(body.article).toBeObject();
+				expect(body).toBeObject();
 			});
 	});
 });

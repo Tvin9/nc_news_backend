@@ -28,9 +28,8 @@ exports.getArticlesById = async (article_id) => {
 	`,
 		[article_id],
 	);
-	const article_by_id = { article: rows };
 
-	return article_by_id;
+	return rows;
 };
 
 exports.getArticleComments = async (article_id) => {
