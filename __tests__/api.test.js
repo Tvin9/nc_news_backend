@@ -143,21 +143,21 @@ describe('200 GET: api/users', () => {
 			.get('/api/users')
 			.expect(200)
 			.then(({ body }) => {
-				expect(body.users).toBeObject();
+				expect(body).toBeObject();
 			});
 	});
 	test('Object shouls have the key of users', () => {
 		return request(app)
 			.get('/api/users')
 			.then(({ body }) => {
-				expect(body.users).toContainKey('users');
+				expect(body).toContainKey('users');
 			});
 	});
-	test('Object should have relevent properties', () => {
+	test('Object should have relevant properties', () => {
 		return request(app)
 			.get('/api/users')
 			.then(({ body }) => {
-				body.users.users.forEach((user) => {
+				body.users.forEach((user) => {
 					expect(user).toContainAllKeys(['username', 'name', 'avatar_url']);
 				});
 			});

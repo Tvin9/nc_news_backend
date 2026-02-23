@@ -4,6 +4,6 @@ exports.getAllUsers = async () => {
 	const { rows } = await db.query(`
         SELECT * FROM users
         `);
-	const users = { users: rows };
-	return users;
+
+	return rows;
 };
