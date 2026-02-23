@@ -4,6 +4,6 @@ const {
 
 exports.getAllTopics = async (req, res) => {
 	const topics = await getAllTopicsService();
-	console.log('test');
+
 	res.status(200).send({ topics });
 };

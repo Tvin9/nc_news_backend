@@ -28,6 +28,20 @@ describe('200 GET: api/topics', () => {
 	test('Should get a 200 status message', () => {
 		return request(app).get('/api/topics').expect(200);
 	});
+	test('should return an object', () => {
+		return request(app)
+			.get('/api/topics')
+			.then(({ body }) => {
+				expect(body).toBeObject();
+			});
+	});
+	test('returned object should ahve property of topics', () => {
+		return request(app)
+			.get('/api/topics')
+			.then(({ body }) => {
+				expect(body).toHaveProperty('topics');
+			});
+	});
 });
 
 describe('200 GET: api/articles', () => {
