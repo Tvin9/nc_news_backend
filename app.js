@@ -4,7 +4,7 @@ const app = express();
 
 //import cors
 const cors = require('cors');
-app.use(cors());
+app.use(cors({ credentials: true }));
 
 //Bring in error handlers
 const NotFoundError = require('./errors/not_found_error');
