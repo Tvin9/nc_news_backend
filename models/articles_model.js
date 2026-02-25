@@ -73,7 +73,7 @@ exports.postComment = async (comment, article_id) => {
 		`,
 		[author, body, article_id],
 	);
-	console.log(rows);
+
 	return rows[0];
 };
 
