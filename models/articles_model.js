@@ -64,7 +64,6 @@ exports.getArticleComments = async (article_id) => {
 exports.postComment = async (comment, article_id) => {
 	const author = comment.author;
 	const body = comment.body;
-	console.log(article_id);
 
 	const { rows } = await db.query(
 		`
@@ -74,7 +73,7 @@ exports.postComment = async (comment, article_id) => {
 		`,
 		[author, body, article_id],
 	);
-
+	console.log(rows);
 	return rows[0];
 };
 
