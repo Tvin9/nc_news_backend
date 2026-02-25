@@ -38,14 +38,8 @@ exports.getArticlesById = async (article_id) => {
 			ON articles.article_id = comments.article_id
 		WHERE articles.article_id = $1
 		GROUP BY 
-			articles.article_id,
-			articles.author, 
-			articles.title, 
-			articles.topic,
-			articles.body,
-			articles.created_at,
-			articles.votes,
-			articles.article_img_url
+			articles.article_id
+			
 		`,
 		[article_id],
 	);
@@ -70,6 +64,7 @@ exports.getArticleComments = async (article_id) => {
 exports.postComment = async (comment, article_id) => {
 	const author = comment.author;
 	const body = comment.body;
+	console.log(article_id);
 
 	const { rows } = await db.query(
 		`

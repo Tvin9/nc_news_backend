@@ -184,13 +184,13 @@ describe('201 POST: /api/articles/:article_id/comments', () => {
 describe('202 PATCH: /api/articles/:article_id', () => {
 	test('Should return 202', () => {
 		return request(app)
-			.post('/api/articles/2')
+			.patch('/api/articles/2')
 			.send({ inc_votes: 1 })
 			.expect(202);
 	});
 	test('Should retrun the correct updated vote', () => {
 		return request(app)
-			.post('/api/articles/1')
+			.patch('/api/articles/1')
 			.send({ inc_votes: 1 })
 			.then(({ body }) => {
 				expect(body.vote.votes).toBe(101);
