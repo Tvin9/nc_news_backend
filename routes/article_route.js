@@ -14,6 +14,8 @@ article_router.get('/:article_id/comments', getArticleComments);
 
 //POST routes
 article_router.post('/:article_id/comments', postComment);
-article_router.post('/:article_id', updateVotes);
+
+//PATCH routes
+article_router.patch('/:article_id', updateVotes);
 
 module.exports = article_router;
