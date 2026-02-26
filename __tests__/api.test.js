@@ -188,16 +188,14 @@ describe('201 POST: /api/users', () => {
 			.send({
 				username: 'Bob',
 				name: 'Bob Bobberton',
-				avatar_url:
-					'https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013',
+				avatar_url: '/avatars/elephant_avatar.svg',
 			})
 			.expect(201)
 			.then(({ body }) => {
 				expect(body.user).toMatchObject({
 					username: 'Bob',
 					name: 'Bob Bobberton',
-					avatar_url:
-						'https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013',
+					avatar_url: '/avatars/elephant_avatar.svg',
 				});
 			});
 	});
