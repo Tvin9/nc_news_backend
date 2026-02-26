@@ -1,5 +1,9 @@
-const { getAllUsers } = require('../models/users_model');
+const { getAllUsers, addUser } = require('../models/users_model');
 
 exports.getAllUsers = () => {
 	return getAllUsers();
+};
+
+exports.addUser = (newUser) => {
+	return addUser(newUser);
 };

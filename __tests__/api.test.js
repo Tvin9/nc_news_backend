@@ -181,6 +181,28 @@ describe('201 POST: /api/articles/:article_id/comments', () => {
 	});
 });
 
+describe('201 POST: /api/users', () => {
+	test('Should return a 201 status code and the new user', () => {
+		return request(app)
+			.post('/api/users')
+			.send({
+				username: 'Bob',
+				name: 'Bob Bobberton',
+				avatar_url:
+					'https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013',
+			})
+			.expect(201)
+			.then(({ body }) => {
+				expect(body.user).toMatchObject({
+					username: 'Bob',
+					name: 'Bob Bobberton',
+					avatar_url:
+						'https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013',
+				});
+			});
+	});
+});
+
 describe('202 PATCH: /api/articles/:article_id', () => {
 	test('Should return 202', () => {
 		return request(app)
