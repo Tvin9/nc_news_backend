@@ -95,7 +95,7 @@ describe('200 GET: api/articles', () => {
 				body.articles.forEach((article) => {
 					expect(article.comment_count).toBeInteger();
 				});
-				expect(body.articles[5].comment_count).toBe('2');
+				expect(body.articles[5].comment_count).toBe(2);
 			});
 	});
 });

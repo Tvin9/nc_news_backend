@@ -7,7 +7,7 @@ const {
 } = require('../models/articles_model');
 
 exports.getAllArticles = (sort_by, order) => {
-	return getAllArticles();
+	return getAllArticles(sort_by, order);
 };
 
 exports.getArticlesById = (article_id) => {

@@ -1,22 +1,43 @@
 const db = require('../db/connection');
 
 exports.getAllArticles = async (sort_by = 'created_at', order = 'desc') => {
+	const validSorts = [
+		'author',
+		'title',
+		'article_id',
+		'topic',
+		'created_at',
+		'votes',
+		'comment_count',
+	];
+
+	const validOrder = ['asc', 'desc'];
+
+	if (!validSorts.includes(sort_by)) {
+		throw { status: 400, msg: 'Invalid sort_by query' };
+	}
+
+	if (!validOrder.includes(order.toLowerCase())) {
+		throw { status: 400, msg: 'Invalid order query' };
+	}
+
 	const { rows } = await db.query(`
-        SELECT 
-			articles.author, 
-			articles.title, 
-			articles.article_id, 
-			articles.topic,
-			articles.created_at,
-			articles.votes,
-			articles.article_img_url,
-			COUNT (*) AS comment_count
-		FROM articles 
-		LEFT JOIN comments 
-		ON articles.article_id = comments.article_id
-		GROUP BY articles.article_id
-		ORDER BY ${sort_by} ${order}
-		`);
+    SELECT 
+      articles.author, 
+      articles.title, 
+      articles.article_id, 
+      articles.topic,
+      articles.created_at,
+      articles.votes,
+      articles.article_img_url,
+      COUNT(comments.comment_id)::INT AS comment_count
+    FROM articles 
+    LEFT JOIN comments 
+      ON articles.article_id = comments.article_id
+    GROUP BY articles.article_id
+    ORDER BY ${sort_by} ${order}
+  `);
+
 	return rows;
 };
 
