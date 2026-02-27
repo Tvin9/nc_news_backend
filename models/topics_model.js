@@ -6,3 +6,11 @@ exports.getAllTopics = async () => {
         `);
 	return rows;
 };
+
+exports.getTopicBySlug = async (slug) => {
+	const { rows } = await db.query(
+		`SELECT slug, description, img_url FROM topics WHERE slug = $1`,
+		[slug],
+	);
+	return rows[0];
+};

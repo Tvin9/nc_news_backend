@@ -44,6 +44,12 @@ describe('200 GET: api/topics', () => {
 	});
 });
 
+describe('200 GET: api/topics/:slug', () => {
+	test('should return a 200 status message', () => {
+		return request(app).get('/api/topics/cats').expect(200);
+	});
+});
+
 describe('200 GET: api/articles', () => {
 	test('should reeturn a 200 status code, and the title should be a string', () => {
 		return request(app)
@@ -96,6 +102,16 @@ describe('200 GET: api/articles', () => {
 					expect(article.comment_count).toBeInteger();
 				});
 				expect(body.articles[5].comment_count).toBe(2);
+			});
+	});
+	test('returns only articles with the topic "cats"', () => {
+		return request(app)
+			.get('/api/articles?topic=cats')
+			.then(({ body }) => {
+				expect(body).toBeInstanceOf(Object);
+				body.articles.forEach((article) => {
+					expect(article.topic).toBe('cats');
+				});
 			});
 	});
 });
