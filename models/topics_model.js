@@ -2,7 +2,7 @@ const db = require('../db/connection');
 
 exports.getAllTopics = async () => {
 	const { rows } = await db.query(`
-        SELECT slug, description FROM topics
+        SELECT slug, description, img_url FROM topics
         `);
 	return rows;
 };
