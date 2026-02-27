@@ -1,42 +1,61 @@
 const db = require('../db/connection');
 
-exports.getAllArticles = async (sort_by = 'created_at', order = 'desc') => {
-	const validSorts = [
+// models/articles_model.js
+
+exports.getAllArticles = async (
+	sort_by = 'created_at',
+	order = 'desc',
+	topic,
+) => {
+	const validSortBys = [
 		'author',
 		'title',
 		'article_id',
 		'topic',
 		'created_at',
 		'votes',
+		'article_img_url',
 		'comment_count',
 	];
 
-	const validOrder = ['asc', 'desc'];
+	const validOrders = ['asc', 'desc'];
 
-	if (!validSorts.includes(sort_by)) {
-		throw { status: 400, msg: 'Invalid sort_by query' };
+	if (!validSortBys.includes(sort_by)) {
+		return Promise.reject({ status: 400, msg: 'Invalid sort_by query' });
 	}
 
-	if (!validOrder.includes(order.toLowerCase())) {
-		throw { status: 400, msg: 'Invalid order query' };
+	if (!validOrders.includes(order.toLowerCase())) {
+		return Promise.reject({ status: 400, msg: 'Invalid order query' });
 	}
 
-	const { rows } = await db.query(`
-    SELECT 
-      articles.author, 
-      articles.title, 
-      articles.article_id, 
-      articles.topic,
-      articles.created_at,
-      articles.votes,
-      articles.article_img_url,
-      COUNT(comments.comment_id)::INT AS comment_count
-    FROM articles 
-    LEFT JOIN comments 
-      ON articles.article_id = comments.article_id
-    GROUP BY articles.article_id
-    ORDER BY ${sort_by} ${order}
-  `);
+	let queryStr = `
+		SELECT 
+			articles.author, 
+			articles.title, 
+			articles.article_id, 
+			articles.topic,
+			articles.created_at,
+			articles.votes,
+			articles.article_img_url,
+			COUNT(comments.comment_id)::INT AS comment_count
+		FROM articles 
+		LEFT JOIN comments 
+		ON articles.article_id = comments.article_id
+	`;
+
+	const queryValues = [];
+
+	if (topic) {
+		queryValues.push(topic);
+		queryStr += ` WHERE articles.topic = $1`;
+	}
+
+	queryStr += `
+		GROUP BY articles.article_id
+		ORDER BY ${sort_by} ${order.toUpperCase()}
+	`;
+
+	const { rows } = await db.query(queryStr, queryValues);
 
 	return rows;
 };

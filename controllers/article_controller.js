@@ -8,8 +8,8 @@ const {
 
 //GET
 exports.getAllArticlesController = async (req, res) => {
-	const { sort_by, order } = req.query;
-	const articles = await getAllArticlesService();
+	const { sort_by, order, topic } = req.query;
+	const articles = await getAllArticlesService(sort_by, order, topic);
 
 	res.status(200).send({ articles });
 };
