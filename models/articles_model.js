@@ -1,6 +1,6 @@
 const db = require('../db/connection');
 
-exports.getAllArticles = async () => {
+exports.getAllArticles = async (sort_by = 'created_at', order = 'desc') => {
 	const { rows } = await db.query(`
         SELECT 
 			articles.author, 
@@ -15,7 +15,7 @@ exports.getAllArticles = async () => {
 		LEFT JOIN comments 
 		ON articles.article_id = comments.article_id
 		GROUP BY articles.article_id
-		ORDER BY articles.created_at DESC
+		ORDER BY ${sort_by} ${order}
 		`);
 	return rows;
 };
