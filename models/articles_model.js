@@ -84,6 +84,10 @@ exports.getArticlesById = async (article_id) => {
 		[article_id],
 	);
 
+	if (rows.length === 0) {
+		return Promise.reject({ status: 404, msg: 'Article not found' });
+	}
+
 	return rows;
 };
 
